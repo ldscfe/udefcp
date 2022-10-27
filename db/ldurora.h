@@ -1,7 +1,7 @@
 #ifndef _LDUR_ORA_H_
 #define _LDUR_ORA_H_
 
-#define OTL_ORA19C                                                              /* Compile OTL 4/OCI9 */
+#define OTL_ORA19C                                                              /* Compile OTL 4/OCI9 --> OCI19. ä½¿ç”¨ Oracle 19c Lib ç¼–è¯‘ä¼šæœ‰è¿æ¥é”™è¯¯ï¼ˆåŸå› å¾…æŸ¥ï¼‰ï¼Œå¯ä½¿ç”¨ Oracle 11g Lib ç¼–è¯‘ï¼Œæ”¯æŒè¶…é•¿ Object åç§°ã€‚*/
 #include <db/otlv4.h>
 
 #include <iostream>
@@ -10,14 +10,14 @@
 
 /*
  ***************************************************
-    Explain: ³£ÓÃSQLÓï¾ä²Ù×÷·â×°(Oracle)
+    Explain: å¸¸ç”¨SQLè¯­å¥æ“ä½œå°è£…(Oracle)
     Usage  :
     IN     : str_con: user/passwd@//host:port/instant
     OUT    :
     Problem:
     Author : adaM
     Date   : 2010-4-29
-    MEMO   : Ö§³Ö×Ö·û´®·µ»ØÖµ<65536, Ö§³ÖÊı×é·µ»ØÒ»Ç§ĞĞ
+    MEMO   : æ”¯æŒå­—ç¬¦ä¸²è¿”å›å€¼<65536, æ”¯æŒæ•°ç»„è¿”å›ä¸€åƒè¡Œ
     History:
  ***************************************************
 */
@@ -49,17 +49,17 @@ class SQLORA {
       SQLORA(){status = false;};
       ~SQLORA(){dbConn.logoff();};
 
-      int conn(const string& str_con);                                          //Á¬½ÓÊı¾İ¿â£¬1=Error
+      int conn(const string& str_con);                                          //è¿æ¥æ•°æ®åº“ï¼Œ1=Error
       int conn(const string& host, const string& port, const string& user, const string& passwd, const string& db);
-      int value(string& result, const string& strSql);                          // È¡µÃSQLÓï¾äµÄÒ»¸ö×Ö·û´®·µ»ØÖµ
-      int value(int& result, const string& strSql);                             // È¡µÃSQLÓï¾äµÄÒ»¸öÕûĞÍ·µ»ØÖµ
-      int value(const string& strSql);                                          // È¡µÃSQLÓï¾äµ¥ÁĞ¶àĞĞ×Ö·û´®½á¹û, numÊı¾İ¸öÊı, val[]Êı¾İ¡£
+      int value(string& result, const string& strSql);                          // å–å¾—SQLè¯­å¥çš„ä¸€ä¸ªå­—ç¬¦ä¸²è¿”å›å€¼
+      int value(int& result, const string& strSql);                             // å–å¾—SQLè¯­å¥çš„ä¸€ä¸ªæ•´å‹è¿”å›å€¼
+      int value(const string& strSql);                                          // å–å¾—SQLè¯­å¥å•åˆ—å¤šè¡Œå­—ç¬¦ä¸²ç»“æœ, numæ•°æ®ä¸ªæ•°, val[]æ•°æ®ã€‚
 
-      long exec(const string& strSql);                                          // Ö´ĞĞSQLÓï¾ä£¬·µ»ØÓ°ÏìµÄÊı¾İ¸öÊı¡£
+      long exec(const string& strSql);                                          // æ‰§è¡ŒSQLè¯­å¥ï¼Œè¿”å›å½±å“çš„æ•°æ®ä¸ªæ•°ã€‚
 
-      int query(const string& sql);                                             //Ö´ĞĞSQL
+      int query(const string& sql);                                             //æ‰§è¡ŒSQL
 
-      otl_datetime odt(const string& strSql);                                   // ×ª»»ÈÕÆÚĞÍÊı¾İ yyyy-mm-dd hh24:mi:ss
+      otl_datetime odt(const string& strSql);                                   // è½¬æ¢æ—¥æœŸå‹æ•°æ® yyyy-mm-dd hh24:mi:ss
 };
 
 
@@ -97,10 +97,10 @@ void SQLORA::error(otl_exception& err)
     cerr<<err.var_info<<endl;                                                  /* print out the variable that caused the error */
 }
 
-/* Õı³£·µ»ØÖµÎª0, -1Îª´íÎó¡£ */
+/* æ­£å¸¸è¿”å›å€¼ä¸º0, -1ä¸ºé”™è¯¯ã€‚ */
 
-// Explain: È¡µÃSQLÓï¾äµÄÒ»¸ö×Ö·û´®·µ»ØÖµ
-// Problem: Ö»ÄÜ·µ»ØÒ»¸ö½á¹û£¬¶à½á¹û·µ»ØÒ»¸ö¡£
+// Explain: å–å¾—SQLè¯­å¥çš„ä¸€ä¸ªå­—ç¬¦ä¸²è¿”å›å€¼
+// Problem: åªèƒ½è¿”å›ä¸€ä¸ªç»“æœï¼Œå¤šç»“æœè¿”å›ä¸€ä¸ªã€‚
 // Author : adaM
 // Date   : 2010-4-21
 // History:
@@ -124,8 +124,8 @@ int SQLORA::value(string &result, const string& strSql)
    num = 1;
    return 0;
 }
-// Explain: È¡µÃSQLÓï¾äµÄÒ»¸öÕûĞÎ·µ»ØÖµ
-// Problem: Ö»ÄÜ·µ»ØÒ»¸ö½á¹û£¬¶à½á¹û·µ»ØÒ»¸ö¡£
+// Explain: å–å¾—SQLè¯­å¥çš„ä¸€ä¸ªæ•´å½¢è¿”å›å€¼
+// Problem: åªèƒ½è¿”å›ä¸€ä¸ªç»“æœï¼Œå¤šç»“æœè¿”å›ä¸€ä¸ªã€‚
 // Author : adaM
 // Date   : 2010-4-21
 // History:
@@ -151,8 +151,8 @@ int SQLORA::value(int &result, const string& strSql)
 }
 
 
-// Explain: È¡µÃSQLÓï¾äµ¥ÁĞ¶àĞĞ×Ö·û´®½á¹û numÊı¾İ¸öÊı£¬value[]Êı¾İ¡£
-// Problem: ½á¹ûÊı¾İ×î¶àÎªResultNum¸ö¡£
+// Explain: å–å¾—SQLè¯­å¥å•åˆ—å¤šè¡Œå­—ç¬¦ä¸²ç»“æœ numæ•°æ®ä¸ªæ•°ï¼Œvalue[]æ•°æ®ã€‚
+// Problem: ç»“æœæ•°æ®æœ€å¤šä¸ºResultNumä¸ªã€‚
 // Author : adaM
 // Date   : 2010-4-21
 // History:
@@ -186,7 +186,7 @@ int SQLORA::value(const string& strSql)
 }
 
 
-// Explain: Ö´ĞĞSQLÓï¾ä£¬·µ»ØÓ°ÏìµÄÊı¾İ¸öÊı¡£
+// Explain: æ‰§è¡ŒSQLè¯­å¥ï¼Œè¿”å›å½±å“çš„æ•°æ®ä¸ªæ•°ã€‚
 // Problem:
 // Author : adaM
 // Date   : 2010-4-22
@@ -209,7 +209,7 @@ long SQLORA::exec(const string& strSql)
 }
 
 
-//Ö´ĞĞSQL
+//æ‰§è¡ŒSQL
 int SQLORA::query(const string& sql)
 {
    num = -1;
@@ -228,7 +228,7 @@ int SQLORA::query(const string& sql)
    return num;
 }
 
-/* ×ª»»ÈÕÆÚĞÍÊı¾İ yyyy-mm-dd hh24:mi:ss */
+/* è½¬æ¢æ—¥æœŸå‹æ•°æ® yyyy-mm-dd hh24:mi:ss */
 otl_datetime SQLORA::odt(const string& str)
 {
    otl_datetime tm;
