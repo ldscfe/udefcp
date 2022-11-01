@@ -3,15 +3,16 @@
 /*
 ******************************************************************************
   Name     : ldurtime
-  Purpose  : 时间函数
+  Purpose  : get secs, date, time,...
   Author   : Adam
 
   Revisions:
-   Ver        Date        Author           Description
+   Ver       Date      Author           Description
    --------  --------  ---------------  ------------------------------------
    1.0       20100908  Adam             Create
    1.2       20190926  Adam             Add msecs()
    1.21      20221010  Adam             Add getTime(int n=0)
+   1.22      20221101  Adam             Add updateTimeVar
 
 ******************************************************************************
 */
@@ -27,7 +28,7 @@ namespace ldur
 {
 using namespace std;
 
-// Explain: 自1970/1/1 以来秒计数
+// Explain: secs since 1970-1-1
 // Problem:
 // Author : adaM
 // Date   : 2010-9-8
@@ -40,7 +41,7 @@ long timesecs()
    return lt;
 }
 
-// Explain: 自1970/1/1 以来毫秒计数
+// Explain: microsecs since 1970-1-1
 // Author : adaM
 // Date   : 2019/9/26
 long msecs()
@@ -83,7 +84,7 @@ long randMillisecs()
 }
 
 
-// Explain: 取本月天数
+// Explain: days of the month
 // Problem:
 // Author : adaM
 // Date   : 2006.6.1
@@ -130,10 +131,10 @@ int getMonthDays( int date )
 //get current time, yyyymmddhh24miss
 unsigned long getTime(int n=0)
 {
-   time_t now = time(0);                          //1970 到目前经过秒数
+   time_t now = time(0);                          // secs since 1970-1-1
    now -= n;
    
-   tm *ltm = localtime(&now);                     //设置 tm 结构的各个组成部分
+   tm *ltm = localtime(&now);                     // secs since 1970-1-1
  
    unsigned long i;
    
@@ -152,6 +153,33 @@ unsigned long getTime(int n=0)
    return i;
 }
 
+
+// update string date variable
+// now = yyyymmdd
+// yesterday(now-1), now-2, ...
+string updateTimeVar(string& str1)
+{
+   string s1, s2, t1;
+   long n1;
+   for (int i=0; i<10; i++)
+   {
+      s1 = strInstr(str1, "%", 2);
+      if (s1 == "")
+          break;
+
+      t1 = strInstr(s1, "-", 1);
+      n1 = atoi(strInstr(s1, "-", 2).c_str());
+      if (t1 == "yesterday")
+           n1 = getTime((n1+1)*24*3600);
+      else if (t1 == "now")
+           n1 = getTime(n1*24*3600);
+      s2 = num2str(n1);
+
+      str1 = strRep(str1, "%" + s1 + "%", s2.substr(0,8));
+
+   }
+   return str1;
+}
 
 } // namespace usr
 #endif
