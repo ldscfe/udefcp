@@ -78,7 +78,7 @@ class SQLMY {
          //delete driver;
       };
       
-      int conn(LDURMAP& conn);                                            //connect db: -1=Error
+      int conn(LDURMAP& conn);                                                                                            //connect db: -1=Error
       int conn(const string& host, const string& port, const string& user, const string& passwd, const string& db);       //connect db: -1=Error
       int schema(const string& db);
       int value(string& result, const string& str_sql);                         //Result: string
