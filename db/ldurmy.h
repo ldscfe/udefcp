@@ -18,15 +18,15 @@
 
 /*
  ***************************************************
-   Explain: ³£ÓÃSQLÓï¾ä²Ù×÷·â×°(MySQL)
+   Explain: å¸¸ç”¨SQLè¯­å¥æ“ä½œå°è£…(MySQL)
    Usage  :
    IN     : str_con: user/passwd@//host:port/instant
    OUT    :
    Problem:
    Author : adaM
    Date   : 2018-4-10
-   MEMO   : °²×° mysql-connector-c++¡£Ö§³Ö×Ö·û´®·µ»ØÖµ<4000£¬Ö§³ÖÊı×é·µ»ØÒ»Ç§ĞĞ
-          : Ê¹ÓÃ boost, yum install boost-devel [boost, boost-doc]
+   MEMO   : å®‰è£… mysql-connector-c++ã€‚æ”¯æŒå­—ç¬¦ä¸²è¿”å›å€¼<4000ï¼Œæ”¯æŒæ•°ç»„è¿”å›ä¸€åƒè¡Œ
+          : ä½¿ç”¨ boost, yum install boost-devel [boost, boost-doc]
    History:
    Ver        Date        Author           Description
    ---------  ----------  ---------------  ------------------------------------
@@ -86,7 +86,7 @@ class SQLMY {
       int value(const string& str_sql);                                         //Result: num=counts, key-value[][]
 
       long exec(const string& str_sql);                                         //execute SQL, stmt->getUpdateCount()
-      int query(const string& str_sql);                                         //Ö´ĞĞSQL
+      int query(const string& str_sql);                                         //run SQL
 };
 
 int SQLMY::conn(LDURMAP& m_conn)
@@ -195,10 +195,10 @@ void SQLMY::error(sql::SQLException &e)                                       /*
    code = to_str(e.getErrorCode());
 }
 
-/* Õı³£·µ»ØÖµÎª0, -1Îª´íÎó¡£ */
+/* æ­£å¸¸è¿”å›å€¼ä¸º0, -1ä¸ºé”™è¯¯ã€‚ */
 
-// Explain: È¡µÃSQLÓï¾äµÄÒ»¸ö×Ö·û´®·µ»ØÖµ
-// Problem: Ö»ÄÜ·µ»ØÒ»¸ö½á¹û£¬¶à½á¹û·µ»ØÒ»¸ö¡£
+// Explain: å–å¾—SQLè¯­å¥çš„ä¸€ä¸ªå­—ç¬¦ä¸²è¿”å›å€¼
+// Problem: åªèƒ½è¿”å›ä¸€ä¸ªç»“æœï¼Œå¤šç»“æœè¿”å›ä¸€ä¸ªã€‚
 // Author : adaM
 // Date   : 2018-4-10
 // History:
@@ -229,8 +229,8 @@ int SQLMY::value(string &result, const string& str_sql)
 
 
 
-// Explain: È¡µÃSQLÓï¾äµÄÒ»¸öÕûĞÎ·µ»ØÖµ
-// Problem: Ö»ÄÜ·µ»ØÒ»¸ö½á¹û£¬¶à½á¹û·µ»ØµÚÒ»¸ö¡£
+// Explain: å–å¾—SQLè¯­å¥çš„ä¸€ä¸ªæ•´å½¢è¿”å›å€¼
+// Problem: åªèƒ½è¿”å›ä¸€ä¸ªç»“æœï¼Œå¤šç»“æœè¿”å›ç¬¬ä¸€ä¸ªã€‚
 // Author : adaM
 // Date   : 2018-4-10
 // History:
@@ -263,8 +263,8 @@ int SQLMY::value(long& result, const string& str_sql)
 
 
 
-// Explain: È¡µÃSQLÓï¾äµ¥ÁĞ¶àĞĞ×Ö·û´®½á¹û numÊı¾İ¸öÊı£¬value[]Êı¾İ¡£
-// Problem: ½á¹ûÊı¾İ×î¶àÎªResultNum¸ö¡£
+// Explain: å–å¾—SQLè¯­å¥å•åˆ—å¤šè¡Œå­—ç¬¦ä¸²ç»“æœ numæ•°æ®ä¸ªæ•°ï¼Œvalue[]æ•°æ®ã€‚
+// Problem: ç»“æœæ•°æ®æœ€å¤šä¸ºResultNumä¸ªã€‚
 // Author : adaM
 // Date   : 2018-4-10
 // History:
@@ -299,7 +299,7 @@ int SQLMY::value(const string& str_sql)
 }
 
 
-// Explain: Ö´ĞĞSQLÓï¾ä£¬·µ»ØÓ°ÏìµÄÊı¾İ¸öÊı¡£
+// Explain: æ‰§è¡ŒSQLè¯­å¥ï¼Œè¿”å›å½±å“çš„æ•°æ®ä¸ªæ•°ã€‚
 // Problem:
 // Author : adaM
 // Date   : 2018-4-10
@@ -324,7 +324,7 @@ long SQLMY::exec(const string& str_sql)
 }
 
 
-//Ö´ĞĞSQL
+//Ö´run SQL
 int SQLMY::query(const string& str_sql)
 {
    cols = -1;
