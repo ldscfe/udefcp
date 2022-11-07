@@ -48,7 +48,7 @@ string rtrim( const string& str );                          // trim from right <
 string lower( const string & str );                         // to lower
 string upper( const string & str );                         // to upper
 string num2str( const long& num );                          // 2 --> '2'
-string str2csv( string&, const string& delimiter = ",")     // string to csv format
+string str2csv( string&, const string& delimiter = ",");    // string to csv format
 
 //
 // reserve to next version(b-2025) 
