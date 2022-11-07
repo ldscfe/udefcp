@@ -1,13 +1,22 @@
 #ifndef _LDUR_STR_H_
 #define _LDUR_STR_H_
 /*
- ***************************************************
-    Explain: ×Ô¶¨Òå×Ö·ûº¯Êı
-    Problem:
-    Author : adaM
-    Date   : 2010-4-26
-    History:
- ***************************************************
+******************************************************************************
+  Name     : ldurstr
+  Purpose  : User Define Function
+  Author   : Adam
+
+  Revisions:
+   Ver        Date        Author           Description
+   --------  --------  ---------------  ------------------------------------
+   1.0       20100426  Adam             Create
+   1.1       20100912  Adam             
+   1.2       20110912  Adam             
+   1.3       20130608  Adam             
+   1.5       20170414  Adam             Add strGet, strCut
+   2.0       20221108  Adam             Add str2csv
+
+******************************************************************************
 */
 #include <iostream>
 #include <stdio.h>
@@ -19,33 +28,38 @@ namespace ldur
 {
 using namespace std;
 
-#define CHARMAX 65536
+#define CHARMAX 1048576                // lower, upper
 /* Macro Define */
 #define umax(a,b) (a>b)?a:b
 #define umin(a,b) (a>b)?b:a
 // Function Statement
-string isNULL( const string& str1 );                                                      // ×Ö·û´®Îª¿Õ£¬·µ»ØÖĞÎÄ¿Õ¸ñ, string str1
-string isNULL( const string& str1, const string& str2 );                                  // ×Ö·û´®Îª¿Õ£¬·µ»Ø str2
-string strInstr ( const string& source, const char& instr, const int serial  );           // ¸ù¾İ·Ö¸ô·û¼°Ö¸¶¨·µ»ØÎ»ÖÃ£¬·µ»Ø×Ö·û´®¡£
+string isNULL( const string& str1 );                                                      // str1 is NULL, return GB-NULL
+string isNULL( const string& str1, const string& str2 );                                  // str1 is NULL, return str2
+string strInstr ( const string& source, const char& instr, const int serial  );           // æ ¹æ®åˆ†éš”ç¬¦åŠæŒ‡å®šè¿”å›ä½ç½®ï¼Œè¿”å›å­—ç¬¦ä¸²ã€‚
 string strInstr ( const string& source, const string& instr, const int serial );
-string strInstrRemain ( const string& source, char instr, int serial  );                  // ¸ù¾İ·Ö¸ô·û¼°Ö¸¶¨·µ»ØÎ»ÖÃ£¬·µ»ØÊ£ÏÂµÄ×Ö·û´®¡£
-//string strInstrRemain ( const string& source, const string& instr, int serial );
-string strGet ( const string&, const string&, const string& );                            // ¸ù¾İ·Ö¸ô·û·µ»Ø×Ö·û´®
-string strCut ( const string&, const string&, const string& );                            // ¹ıÂËËùÓĞ¼ä¸ô·û¼äµÄ×Ö·û
-string strRep( string context, const string& from, const string& to );                    // Ìæ»»Ô´×Ö·û´®ÖĞµÄ×Ö·û´®
-string str2asc( const string& src );                                                      // ascii to string	sample: "097098" --> "ab"
-string asc2str( const string& src );                                                      // string to ascii	sample: "ab" --> "097098"
-string trim( const string& str );
-string ltrim( const string& str );
-string rtrim( const string& str );
-string lower( const string & str );                         //×ÖÄ¸×ª»»ÎªĞ¡Ğ´
-string upper( const string & str );                         //×ÖÄ¸×ª»»Îª´óĞ´
+string strInstrRemain ( const string& source, char instr, int serial  );                  // æ ¹æ®åˆ†éš”ç¬¦åŠæŒ‡å®šè¿”å›ä½ç½®ï¼Œè¿”å›å‰©ä¸‹çš„å­—ç¬¦ä¸²ã€‚
+string strInstrRemain ( const string& source, const string& instr, int serial );
+string strGet ( const string&, const string&, const string& );                            // è¿”å›é—´éš”ç¬¦é—´çš„å­—ç¬¦
+string strCut ( const string&, const string&, const string& );                            // è¿‡æ»¤é—´éš”ç¬¦é—´çš„å­—ç¬¦
+string strRep( string context, const string& from, const string& to );                    // æ›¿æ¢æºå­—ç¬¦ä¸²ä¸­çš„å­—ç¬¦ä¸²
+string trim( const string& str );                           // trim both
+string ltrim( const string& str );                          // trim from left  ->
+string rtrim( const string& str );                          // trim from right <-
+string lower( const string & str );                         // to lower
+string upper( const string & str );                         // to upper
+string num2str( const long& num );                          // 2 --> '2'
+string str2csv( string&, const string& delimiter = ",")     // string to csv format
 
-string to_str( const long& num );                           //ÊıÖµ×ª»»Îª×Ö·û´®
+//
+// reserve to next version(b-2025) 
+//
+string str2asc( const string& src );                        // ascii to string	sample: "097098" --> "ab"
+string asc2str( const string& src );                        // string to ascii	sample: "ab" --> "097098"
+string to_str( const long& num );                           // 
 
 
 
-// Explain: ·µ»ØÔ­×Ö·û´®»òÖĞÎÄ¿Õ¸ñ£¬×Ö·û´®Îª¿Õ£¬·µ»ØÖĞÎÄ¿Õ¸ñ
+// Explain: è¿”å›åŸå­—ç¬¦ä¸²æˆ–ä¸­æ–‡ç©ºæ ¼ï¼Œå­—ç¬¦ä¸²ä¸ºç©ºï¼Œè¿”å›ä¸­æ–‡ç©ºæ ¼
 // Problem:
 // Author : adaM
 // Date   : 2010-4-26
@@ -53,12 +67,12 @@ string to_str( const long& num );                           //ÊıÖµ×ª»»Îª×Ö·û´®
 string isNULL( const string& str1 )
 {
 //    if ( str1.length() == 0 )
-//        return "¡¡";
+//        return "ã€€";
 //    else
 //        return str1;
-    return ( str1.length()==0?"¡¡":str1 );
+    return ( str1.length()==0?"ã€€":str1 );
 }
-// Explain: ×Ö·û´®Îª¿Õ£¬·µ»ØÁíÒ»¸ö×Ö·û´®
+// Explain: å­—ç¬¦ä¸²ä¸ºç©ºï¼Œè¿”å›å¦ä¸€ä¸ªå­—ç¬¦ä¸²
 // Problem:
 // Author : adaM
 // Date   : 2019-12-4
@@ -69,7 +83,7 @@ string isNULL( const string& str1, const string& str2 )
 }
 
 
-// Explain: ¸ù¾İ·Ö¸ô·û¼°Ö¸¶¨·µ»ØÎ»ÖÃ£¬·µ»Ø×Ö·û´®¡£( ·Ö¸ô·û¿ÉÒÔÎª×Ö·û´®£¬»òµ¥×Ö·û )
+// Explain: æ ¹æ®åˆ†éš”ç¬¦åŠæŒ‡å®šè¿”å›ä½ç½®ï¼Œè¿”å›å­—ç¬¦ä¸²ã€‚( åˆ†éš”ç¬¦å¯ä»¥ä¸ºå­—ç¬¦ä¸²ï¼Œæˆ–å•å­—ç¬¦ )
 // Problem:
 // Author : adaM
 // Date   : 2010-4-26
@@ -84,7 +98,7 @@ string strInstr ( const string& source, const char& instr, int serial  )
     step = 1;
 
     pos1 = -step;
-    for ( i=0; i<serial-1; i++ )                           // Èç¹ûÈ¡µÚÒ»¸ö·Ö¸ô·û£¬ÄÇÃ´pos1ÖµÎª-1.
+    for ( i=0; i<serial-1; i++ )                           // å¦‚æœå–ç¬¬ä¸€ä¸ªåˆ†éš”ç¬¦ï¼Œé‚£ä¹ˆpos1å€¼ä¸º-1.
     {
         pos1 = source.find(instr, pos1+step);
         if ( pos1 == -1 )
@@ -130,7 +144,7 @@ string strInstr ( const string& source, const string& instr, int serial  )
 
 
 
-// Explain: ¸ù¾İ·Ö¸ô·û¼°Ö¸¶¨·µ»ØÎ»ÖÃ£¬·µ»ØÊ£ÏÂµÄ×Ö·û´®¡£( ·Ö¸ô·û¿ÉÒÔÎª×Ö·û´®£¬»òµ¥×Ö·û )
+// Explain: æ ¹æ®åˆ†éš”ç¬¦åŠæŒ‡å®šè¿”å›ä½ç½®ï¼Œè¿”å›å‰©ä¸‹çš„å­—ç¬¦ä¸²ã€‚( åˆ†éš”ç¬¦å¯ä»¥ä¸ºå­—ç¬¦ä¸²ï¼Œæˆ–å•å­—ç¬¦ )
 // Problem:
 // Author : adaM
 // Date   : 2010-4-26
@@ -139,9 +153,9 @@ string strInstrRemain ( const string& source, char instr, int serial  )
 {
     using namespace std;
     int i;
-    int pos1;                                              // ·Ö¸ô·ûµÚserial´Î³öÏÖµÄÎ»ÖÃ
+    int pos1;                                              // åˆ†éš”ç¬¦ç¬¬serialæ¬¡å‡ºç°çš„ä½ç½®
     int step;
-    step = 1;                                              // ×Ö·ûĞÍ³¤¶ÈÎª1£¬×Ö·û´®È¡Æä³¤¶È
+    step = 1;                                              // å­—ç¬¦å‹é•¿åº¦ä¸º1ï¼Œå­—ç¬¦ä¸²å–å…¶é•¿åº¦
 
     pos1 = -step;
     for ( i=1; i<=serial; i++ )
@@ -159,7 +173,7 @@ string strInstrRemain ( const string& source, char instr, int serial  )
 
 
 
-// Explain: ¸ù¾İ·Ö¸ô·û·µ»Ø×Ö·û´®¡£
+// Explain: æ ¹æ®åˆ†éš”ç¬¦è¿”å›å­—ç¬¦ä¸²ã€‚
 // Problem:
 // Author : adaM
 // Date   : 2017-4-14
@@ -186,7 +200,7 @@ string strGet ( const string& source, const string& strB, const string& strE  )
 
 
 
-// Explain: ¹ıÂËËùÓĞ¼ä¸ô·û¼äµÄ×Ö·û
+// Explain: è¿‡æ»¤æ‰€æœ‰é—´éš”ç¬¦é—´çš„å­—ç¬¦
 // Problem:
 // Author : adaM
 // Date   : 2017-4-14
@@ -217,7 +231,7 @@ string strCut ( const string& source, const string& strB, const string& strE  )
 
 
 
-// Explain: ·µ»ØÖµ£ºÌæ»»Ô´×Ö·û´®ÖĞµÄ×Ö·û´®£¬Ô­×Ö·û´®²»ĞŞ¸Ä¡£
+// Explain: è¿”å›å€¼ï¼šæ›¿æ¢æºå­—ç¬¦ä¸²ä¸­çš„å­—ç¬¦ä¸²ï¼ŒåŸå­—ç¬¦ä¸²ä¸ä¿®æ”¹ã€‚
 // Problem:
 // Author : adaM
 // Date   : 2010-9-12
@@ -235,49 +249,6 @@ string strRep( string context, const string& from, const string& to )
     return context;
 }
 
-//string to ascii
-//  sample: ab --> 097098
-//  adaM
-//  2011-6-21
-string str2asc( const string& src )
-{
-    using namespace std;
-    string str_asc;
-    unsigned int i;
-    int i_asc;
-    char c_asc[3];
-
-
-    for( i=0; i<src.length(); i++ )
-    {
-        i_asc  = src[i];
-        sprintf( c_asc, "%03d", i_asc );
-        str_asc += c_asc;
-    }
-    return str_asc;
-}
-
-
-//ascii to string
-//  sample: 097098 --> ab
-//  adaM
-//  2011-6-21
-string asc2str( const string& src )
-{
-    using namespace std;
-    string str;
-    unsigned int i;
-    char ch;
-    string str_tmp;
-
-    for( i=0; i<src.length(); i+=3 )
-    {
-        str_tmp = src.substr( i, 3 );
-        ch = atoi( str_tmp.c_str());
-        str +=ch;
-    }
-    return str;
-}
 
 
 //trim
@@ -310,30 +281,7 @@ string rtrim( const string& str )
 }
 
 
-
-//num2str
-//  sample: 123 --> "123"
-//  adaM
-//  2013-6-8
-string num2str( const long num )
-{
-    string str;
-    char cNum[50];
-    sprintf( cNum, "%ld", num );
-    str = cNum;
-    return str;
-}
-string num2str( const int num )
-{
-    string str;
-    char cNum[50];
-    sprintf( cNum, "%d", num );
-    str = cNum;
-    return str;
-}
-
-
-//×ÖÄ¸×ª»»ÎªĞ¡Ğ´
+// to lower
 string lower( const string& str )
 {
 	string result;
@@ -350,9 +298,7 @@ string lower( const string& str )
 	result = tmp;
 	return result;
 }                      
-
-
-//×ÖÄ¸×ª»»Îª´óĞ´
+// to upper
 string upper( const string& str )
 {
 	string result;
@@ -371,8 +317,12 @@ string upper( const string& str )
 }                      
 
 
-//ÊıÖµ×ª»»Îª×Ö·û´®
-string to_str( const long& num )
+
+//num2str
+//  sample: 123 --> "123"
+//  adaM
+//  2013-6-8
+string num2str( const long& num )
 {
 	string result;
 	char tmp[128];
@@ -380,6 +330,73 @@ string to_str( const long& num )
 	result = tmp;
 	
 	return result;
+}
+
+
+
+// string --> csv format
+// return the converted string, the original string is also changed.
+// 2022-10-8
+string str2csv(string& str1, const string& delimiter=",")
+{
+   if ( strstr(str1.c_str(), "\"") || strstr(str1.c_str(), "\r") || strstr(str1.c_str(), "\n")  || strstr(str1.c_str(), delimiter.c_str()) ) {
+      str1 = strRep(str1, "\"", "\"\"");
+      str1 = "\"" + str1 + "\"";
+   }
+   return str1;
+}
+
+
+//
+// reserve to next version(b-2025) 
+//
+
+//string to ascii
+//  sample: ab --> 097098
+//  adaM
+//  2011-6-21
+string str2asc( const string& src )
+{
+    using namespace std;
+    string str_asc;
+    unsigned int i;
+    int i_asc;
+    char c_asc[3];
+
+
+    for( i=0; i<src.length(); i++ )
+    {
+        i_asc  = src[i];
+        sprintf( c_asc, "%03d", i_asc );
+        str_asc += c_asc;
+    }
+    return str_asc;
+}
+
+//ascii to string
+//  sample: 097098 --> ab
+//  adaM
+//  2011-6-21
+string asc2str( const string& src )
+{
+    using namespace std;
+    string str;
+    unsigned int i;
+    char ch;
+    string str_tmp;
+
+    for( i=0; i<src.length(); i+=3 )
+    {
+        str_tmp = src.substr( i, 3 );
+        ch = atoi( str_tmp.c_str());
+        str +=ch;
+    }
+    return str;
+}
+
+string to_str( const long& num )
+{
+	return num2str(num);
 }                    
 
 } // namespace usr
